@@ -1,5 +1,6 @@
 import React, { use, useState } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
+import { Tooltip } from "react-tooltip";
 import { AuthContext } from "../provider/AuthContext";
 import { FaUser } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
@@ -72,26 +73,29 @@ export default function Navbar() {
 
            {/* Desktop Menu */}
           <div className="hidden md:flex space-x-10 items-center">
-            <Link to="/" className="text-gray-700 hover:text-gray-900 font-medium transition">
+            <NavLink to="/" className="text-gray-700 hover:text-gray-900 font-medium transition">
               Home
-            </Link>
-            <Link to="/biodatas" className="text-gray-700 hover:text-gray-900 font-medium transition">
+            </NavLink>
+            <NavLink>
+              to="/biodatas" className="text-gray-700 hover:text-gray-900 font-medium transition"
               Biodatas
-            </Link>
-            <Link to="/about" className="text-gray-700 hover:text-gray-900 font-medium transition">
+            </NavLink>
+              
+            
+            <NavLink to="/about" className="text-gray-700 hover:text-gray-900 font-medium transition">
               About Us
-            </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-gray-900 font-medium transition">
+            </NavLink>
+            <NavLink to="/contact" className="text-gray-700 hover:text-gray-900 font-medium transition">
               Contact Us
-            </Link>
+            </NavLink>
               {user && (
-              <Link
+              <NavLink
                 to="/dashboard"
                 className="text-gray-700 hover:text-gray-900 font-medium transition flex items-center gap-1"
               >
                 <MdDashboard className="text-xl" />
                 Dashboard
-              </Link>
+              </NavLink>
             )}
           </div>
 
@@ -116,12 +120,12 @@ export default function Navbar() {
                 </button>
               </>
             ) : (
-              <Link
+              <NavLink
                 to="/login"
                 className="px-4 py-2 border border-gray-700 rounded-md text-gray-700 hover:bg-gray-100 transition"
               >
                 Login
-              </Link>
+              </NavLink>
             )}
           </div>
 
@@ -158,27 +162,27 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="px-4 pt-2 pb-4 space-y-1">
-            <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+            <NavLink to="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               Home
-            </Link>
-            <Link to="/biodatas" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+            </NavLink>
+            <NavLink to="/biodatas" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               Biodatas
-            </Link>
-            <Link to="/about" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+            </NavLink>
+            <NavLink to="/about" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               About Us
-            </Link>
-            <Link to="/contact" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+            </NavLink>
+            <NavLink to="/contact" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               Contact Us
-            </Link>
+            </NavLink>
              {user && (
-              <Link
+              <NavLink
                 to="/dashboard"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 flex items-center gap-2"
                 onClick={() => setIsOpen(false)}
               >
                 <MdDashboard className="text-xl" />
                 Dashboard
-              </Link>
+              </NavLink>
             )}
           </div>
         </div>

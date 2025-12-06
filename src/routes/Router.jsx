@@ -4,7 +4,7 @@ import HomeLayout from "../layouts/HomeLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-
+import ViewBioData from "../pages/DashBoard/ViewBioData";
 import DashboardLayout from "../layouts/DashboardLayout";
 import PrivateRoute from "../provider/PrivateRoute";
 import EditBiodataForm from "../pages/DashBoard/EditBiodataForm";
@@ -35,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/edit-bio-data',
         Component: EditBiodataForm
+      },
+      {
+        path: '/dashboard/view-bio-data',
+        Component: ViewBioData
       }
     ]
   },
