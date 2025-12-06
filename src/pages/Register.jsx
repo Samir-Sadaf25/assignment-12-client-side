@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router"
 import { FcGoogle } from "react-icons/fc"
 import { AuthContext } from "../provider/AuthContext"
 import { use } from "react"
-
+import { saveUserInDB } from "../api/utilities";
 export default function Register() {
   const navigate=useNavigate()
   const {createUser,googleSign,setUser}=use(AuthContext)
@@ -18,6 +18,7 @@ export default function Register() {
     const {name,email,password,photoURL}=userData;
     createUser(email,password)
     .then((data)=>{
+       saveUserInDB(userData)
       const user=data.user
       if(user){
         navigate('/')
