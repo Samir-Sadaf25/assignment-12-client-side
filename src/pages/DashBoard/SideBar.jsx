@@ -40,12 +40,12 @@ export default function SideBar() {
       </div>
 
       {/* Logout Button at Bottom */}
-     <div >
+     <div className="flex flex-col gap-5">
         
         <NavLink  to="/">
           <button
             
-            className="flex items-center gap-3 text-red-600 hover:text-red-800 font-medium transition"
+            className="flex cursor-pointer items-center gap-3 text-red-600 hover:text-red-800 font-medium transition"
           >
             <FaBackward/> Home
           </button>
@@ -53,7 +53,7 @@ export default function SideBar() {
         <NavLink to="/login"></NavLink>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 text-red-600 hover:text-red-800 font-medium transition"
+           className="flex cursor-pointer items-center gap-3 text-red-600 hover:text-red-800 font-medium transition"
           >
             <FaSignOutAlt /> Logout
           </button>
