@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import BioDataCard from "./BioDataCard";
  const [type, setType] = useState("");
   const [division, setDivision] = useState("");
@@ -10,7 +11,7 @@ export default function AllBioData() {
  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
  const limit = 20; 
-
+const axiosSecure=useAxiosSecure()
   const fetchBioData = () => {
     const query = new URLSearchParams();
 

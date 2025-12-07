@@ -82,10 +82,10 @@ export default function Navbar() {
             </NavLink>
               
             
-            <NavLink to="/about" className="text-gray-700 hover:text-gray-900 font-medium transition">
+            <NavLink to="/about-us" className="text-gray-700 hover:text-gray-900 font-medium transition">
               About Us
             </NavLink>
-            <NavLink to="/contact" className="text-gray-700 hover:text-gray-900 font-medium transition">
+             <NavLink to="/contact-us" className="text-gray-700 hover:text-gray-900 font-medium transition">
               Contact Us
             </NavLink>
               {user && (
@@ -168,12 +168,12 @@ export default function Navbar() {
             <NavLink to="/biodatas" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               Biodatas
             </NavLink>
-            <NavLink to="/about" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+            <Link to="/about-us" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               About Us
-            </NavLink>
-            <NavLink to="/contact" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+            </Link>
+            <Link to="/contact-us" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               Contact Us
-            </NavLink>
+            </Link>
              {user && (
               <NavLink
                 to="/dashboard"
