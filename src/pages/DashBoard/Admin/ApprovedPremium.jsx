@@ -18,6 +18,7 @@ const ApprovedPremium = () => {
     const handleApprovePremium = async (email) => {
         try {
             await axiosSecure.patch(`/premium-role-update/${email}`);
+            refetch()
             Swal.fire({
                 icon: "success",
                 title: "Upgraded!",
@@ -52,14 +53,18 @@ const ApprovedPremium = () => {
                             <tr key={request._id} className="hover:bg-gray-50">
                                 <td className="border px-4 py-2">{request.name || "N/A"}</td>
                                 <td className="border px-4 py-2">{request.email}</td>
-                                <td className="border px-4 py-2">{request.biodataId}</td>
+                                <td className="border px-4 py-2">{request.BiodataId}</td>
                                 <td className="border px-4 py-2 text-center">
-                                    <button
-                                        onClick={() => handleApprovePremium(request.email)}
-                                        className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded"
-                                    >
-                                        Make Premium
-                                    </button>
+                                    {request.status === "approved" || request.type === "premium" ? (
+                                        <span className="text-green-600 font-medium">Approved</span>
+                                    ) : (
+                                        <button
+                                            onClick={() => handleApprovePremium(request.email)}
+                                            className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded"
+                                        >
+                                            Make Premium
+                                        </button>
+                                    )}
                                 </td>
                             </tr>
                         ))}

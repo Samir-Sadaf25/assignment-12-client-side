@@ -10,7 +10,6 @@ import {
 import { use } from "react";
 import useRole from '../../hooks/useRole'
 import AdminMenu from "./Admin/AdminMenu";
-
 import { AuthContext } from "../../provider/AuthContext";
 import Swal from "sweetalert2";
 import CustomerMenu from "./CustomerMenu";
@@ -40,6 +39,7 @@ export default function SideBar() {
         <h2 className="text-2xl font-bold text-gray-800 mb-8 text-right md:text-left ">Dashboard</h2>
         {role === 'normal' && <CustomerMenu />}
         {role === 'admin' && <AdminMenu></AdminMenu>}
+         { role==='premium' && <CustomerMenu/>}
       </div>
 
       {/* Logout Button at Bottom */}

@@ -21,7 +21,7 @@ const MyContactRequest = () => {
             }));
         },
     });
-    console.log(data);
+    
 
     const handleDelete = (email) => {
         Swal.fire({
@@ -36,7 +36,7 @@ const MyContactRequest = () => {
             if (result.isConfirmed) {
                 try {
                     await axiosSecure.delete(`/contact-req/${email}`);
-                    refetch();
+                    
                     Swal.fire("Deleted!", "Your request has been deleted.", "success");
                 } catch (error) {
                     Swal.fire("Error!", "Failed to delete. Try again later.", "error");
@@ -86,8 +86,8 @@ const MyContactRequest = () => {
                                 <td className="border border-gray-300 px-4 py-3">
                                     <span
                                         className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${status === "Approved"
-                                                ? "bg-green-100 text-green-800"
-                                                : "bg-yellow-100 text-yellow-800"
+                                            ? "bg-green-100 text-green-800"
+                                            : "bg-yellow-100 text-yellow-800"
                                             }`}
                                     >
                                         {status}
