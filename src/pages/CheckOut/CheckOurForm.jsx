@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ScaleLoader } from 'react-spinners'
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+
 const CheckOurForm = ({ biodata, user }) => {
     const stripe = useStripe();
     const elements = useElements();
@@ -82,7 +83,8 @@ const CheckOurForm = ({ biodata, user }) => {
                     biodataId: biodata?.BiodataId,
                     email: user?.email,
                     nowStatus: "Pending",
-                    biodata
+                    biodata,
+                    fee
                 });
 
                 console.log('Contact request saved:', data);

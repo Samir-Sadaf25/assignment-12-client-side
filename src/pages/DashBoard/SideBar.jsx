@@ -5,16 +5,18 @@ import {
   FaHeart,
   FaSignOutAlt,
   FaEnvelope,
-FaBackward,
+  FaBackward,
 } from "react-icons/fa";
 import { use } from "react";
+import useRole from '../../hooks/useRole'
+import AdminMenu from "./Admin/AdminMenu";
 
 import { AuthContext } from "../../provider/AuthContext";
 import Swal from "sweetalert2";
 import CustomerMenu from "./CustomerMenu";
 export default function SideBar() {
- const { logOut } = use(AuthContext);
-
+  const { logOut } = use(AuthContext);
+  const [role, isRoleLoading] = useRole()
   const handleLogout = () => {
     logOut()
       .then(() => {
@@ -35,29 +37,30 @@ export default function SideBar() {
     <aside className="w-64 h-screen  border-r   flex flex-col justify-between p-6">
       {/* Top Nav Items */}
       <div>
-       <h2 className="text-2xl font-bold text-gray-800 mb-8 text-right md:text-left ">Dashboard</h2>
-        <CustomerMenu></CustomerMenu>
+        <h2 className="text-2xl font-bold text-gray-800 mb-8 text-right md:text-left ">Dashboard</h2>
+        {role === 'normal' && <CustomerMenu />}
+        {role === 'admin' && <AdminMenu></AdminMenu>}
       </div>
 
       {/* Logout Button at Bottom */}
-     <div className="flex flex-col gap-5">
-        
-        <NavLink  to="/">
+      <div className="flex flex-col gap-5">
+
+        <NavLink to="/">
           <button
-            
+
             className="flex cursor-pointer items-center gap-3 text-red-600 hover:text-red-800 font-medium transition"
           >
-            <FaBackward/> Home
+            <FaBackward /> Home
           </button>
         </NavLink>
         <NavLink to="/login"></NavLink>
-          <button
-            onClick={handleLogout}
-           className="flex cursor-pointer items-center gap-3 text-red-600 hover:text-red-800 font-medium transition"
-          >
-            <FaSignOutAlt /> Logout
-          </button>
-        
+        <button
+          onClick={handleLogout}
+          className="flex cursor-pointer items-center gap-3 text-red-600 hover:text-red-800 font-medium transition"
+        >
+          <FaSignOutAlt /> Logout
+        </button>
+
       </div>
     </aside>
   );

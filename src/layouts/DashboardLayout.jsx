@@ -3,15 +3,25 @@ import { Outlet, useLocation } from "react-router";
 import SideBar from "../pages/DashBoard/SideBar";
 import { FaBars } from "react-icons/fa";
 import DashboardHome from "../pages/DashBoard/DashBoardHome";
+import useRole from "../hooks/useRole";
+import AdminDashboardHome from "../pages/DashBoard/Admin/AdminDashboardHome";
 
 export default function DashboardLayout() {
+    const [role, isRoleLoading] = useRole();
+
     const [showSidebar, setShowSidebar] = useState(false);
     const location = useLocation();
     useEffect(() => {
         setShowSidebar(false);
     }, [location.pathname]);
 
-
+    if (isRoleLoading) {
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                Loading...
+            </div>
+        );
+    }
     const isDashboardRoot = location.pathname === "/dashboard";
     return (
         <div className="flex min-h-screen relative">
@@ -39,7 +49,15 @@ export default function DashboardLayout() {
 
 
             <main className="flex-1 ml-0 md:ml-4 p-4 bg-white min-h-screen">
-                {isDashboardRoot ? <DashboardHome /> : <Outlet />}
+                {isDashboardRoot ? (
+                    role === "admin" ? (
+                        <AdminDashboardHome />
+                    ) : (
+                        <DashboardHome />
+                    )
+                ) : (
+                    <Outlet />
+                )}
             </main>
         </div>
     );
