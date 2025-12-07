@@ -8,14 +8,17 @@ import {
   FaBackward,
 } from "react-icons/fa";
 import { use } from "react";
-import useRole from '../../hooks/useRole'
-import AdminMenu from "./Admin/AdminMenu";
+
 import { AuthContext } from "../../provider/AuthContext";
 import Swal from "sweetalert2";
 import CustomerMenu from "./CustomerMenu";
+import useRole from '../../hooks/useRole'
+import AdminMenu from "./Admin/AdminMenu";
 export default function SideBar() {
   const { logOut } = use(AuthContext);
-  const [role, isRoleLoading] = useRole()
+const [role,isRoleLoading]=useRole()
+
+
   const handleLogout = () => {
     logOut()
       .then(() => {
@@ -37,30 +40,30 @@ export default function SideBar() {
       {/* Top Nav Items */}
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-8 text-right md:text-left ">Dashboard</h2>
-        {role === 'normal' && <CustomerMenu />}
-        {role === 'admin' && <AdminMenu></AdminMenu>}
-         { role==='premium' && <CustomerMenu/>}
+        { role==='normal' && <CustomerMenu/>}
+        { role==='premium' && <CustomerMenu/>}
+      { role==='admin' && <AdminMenu></AdminMenu>}
       </div>
 
       {/* Logout Button at Bottom */}
       <div className="flex flex-col gap-5">
-
-        <NavLink to="/">
+        
+        <NavLink  to="/">
           <button
-
-            className="flex cursor-pointer items-center gap-3 text-red-600 hover:text-red-800 font-medium transition"
+            
+            className="flex cursor-pointer items-center gap-3  hover:text-red-800 font-medium transition"
           >
-            <FaBackward /> Home
+            <FaBackward/> Home
           </button>
         </NavLink>
-        <NavLink to="/login"></NavLink>
-        <button
-          onClick={handleLogout}
-          className="flex cursor-pointer items-center gap-3 text-red-600 hover:text-red-800 font-medium transition"
-        >
-          <FaSignOutAlt /> Logout
-        </button>
-
+        <NavLink to="/login">
+          <button
+            onClick={handleLogout}
+            className="flex cursor-pointer items-center gap-3 hover:text-red-800 font-medium transition"
+          >
+            <FaSignOutAlt /> Logout
+          </button>
+        </NavLink>
       </div>
     </aside>
   );

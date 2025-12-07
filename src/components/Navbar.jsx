@@ -3,30 +3,32 @@ import { Link, NavLink } from "react-router";
 import { Tooltip } from "react-tooltip";
 import { AuthContext } from "../provider/AuthContext";
 import { FaUser } from "react-icons/fa";
-import { MdDashboard } from "react-icons/md";
+import { MdDashboard } from "react-icons/md"; 
 import Swal from "sweetalert2";
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logOut } = use(AuthContext);
+
+
   const handleLogout = () => {
     logOut()
-
-      .then(() => {
-        Swal.fire({
-          icon: "success",
-          title: "Congratulations",
-          text: "You Have Successfully Logged Out Successful",
-          timer: 1400,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Congratulations",
+              text: "You Have Successfully Logged Out Successful",
+              timer: 1400,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     setIsOpen(false);
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50 shadow-sm">
+    <nav className="bg-gray-50 border-b border-gray-200 fixed top-0 left-0 right-0 z-50 shadow-sm">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo + Website Name */}
@@ -41,7 +43,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-         {/* Mobile Left Side: Avatar + Auth Button */}
+          {/* Mobile Left Side: Avatar + Auth Button */}
           <div className="flex items-center space-x-4 md:hidden ml-auto">
             {user ? (
               <>
@@ -50,13 +52,16 @@ export default function Navbar() {
                     src={user.photoURL}
                     alt="User"
                     className="w-8 h-8 rounded-full"
+                     data-tooltip-id="my-tooltip"
+              data-tooltip-content={user.displayName}
                   />
                 ) : (
-                  <FaUser className="w-6 h-6 text-gray-500" />
+                  <FaUser  data-tooltip-id="my-tooltip"
+              data-tooltip-content={user.displayName} className="w-6 h-6 text-gray-500" />
                 )}
                 <button
                   onClick={handleLogout}
-                  className=" cursor-pointer text-sm text-gray-700 border border-gray-700 rounded-md px-2 py-1 hover:bg-gray-100"
+                  className=" cursor-pointer btn btn-outline text-sm text-gray-700 border border-gray-700 rounded-md px-2 py-1 hover:bg-yellow-400"
                 >
                   Logout
                 </button>
@@ -64,31 +69,28 @@ export default function Navbar() {
             ) : (
               <Link
                 to="/login"
-                   className="text-sm cursor-pointer text-gray-700 border border-gray-700 rounded-md px-3 py-1 hover:bg-gray-100"
+                className="text-sm cursor-pointer text-gray-700 border border-gray-700 rounded-md px-3 py-1 hover:bg-yellow-400"
               >
                 Login
               </Link>
             )}
           </div>
 
-           {/* Desktop Menu */}
+          {/* Desktop Menu */}
           <div className="hidden md:flex space-x-10 items-center">
             <NavLink to="/" className="text-gray-700 hover:text-gray-900 font-medium transition">
               Home
             </NavLink>
-            <NavLink>
-              to="/biodatas" className="text-gray-700 hover:text-gray-900 font-medium transition"
+            <NavLink to="/biodatas" className="text-gray-700 hover:text-gray-900 font-medium transition">
               Biodatas
             </NavLink>
-              
-            
             <NavLink to="/about-us" className="text-gray-700 hover:text-gray-900 font-medium transition">
               About Us
             </NavLink>
-             <NavLink to="/contact-us" className="text-gray-700 hover:text-gray-900 font-medium transition">
+            <NavLink to="/contact-us" className="text-gray-700 hover:text-gray-900 font-medium transition">
               Contact Us
             </NavLink>
-              {user && (
+            {user && (
               <NavLink
                 to="/dashboard"
                 className="text-gray-700 hover:text-gray-900 font-medium transition flex items-center gap-1"
@@ -98,38 +100,41 @@ export default function Navbar() {
               </NavLink>
             )}
           </div>
-
-           {/* Desktop Auth Buttons */}
+<Tooltip id="my-tooltip" />
+          {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             {user ? (
               <>
                 {user?.photoURL ? (
                   <img
+                  data-tooltip-id="my-tooltip"
+              data-tooltip-content={user.displayName}
                     src={user.photoURL}
                     alt="User"
                     className="w-8 h-8 rounded-full"
                   />
                 ) : (
-                  <FaUser className="w-6 h-6 text-gray-500" />
+                  <FaUser  className="w-6 h-6 text-gray-500"  data-tooltip-id="my-tooltip"
+              data-tooltip-content={user.displayName} />
                 )}
                 <button
                   onClick={handleLogout}
-                  className="px-4 py-2 border border-gray-700 rounded-md text-gray-700 hover:bg-gray-100 transition"
+                  className="px-4 py-2 border  border-gray-700 rounded-md text-gray-700 hover:bg-yellow-400 transition"
                 >
                   Logout
                 </button>
               </>
             ) : (
-              <NavLink
+              <Link
                 to="/login"
-                className="px-4 py-2 border border-gray-700 rounded-md text-gray-700 hover:bg-gray-100 transition"
+                className="px-4 py-2 border border-gray-700 rounded-md text-gray-700 hover:bg-yellow-400 transition"
               >
                 Login
-              </NavLink>
+              </Link>
             )}
           </div>
 
-           {/* Hamburger Button (mobile) */}
+          {/* Hamburger Button (mobile) */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
@@ -158,31 +163,31 @@ export default function Navbar() {
         </div>
       </div>
 
-    {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="px-4 pt-2 pb-4 space-y-1">
-            <NavLink to="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+            <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               Home
-            </NavLink>
-            <NavLink to="/biodatas" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+            </Link>
+            <Link to="/biodatas" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               Biodatas
-            </NavLink>
+            </Link>
             <Link to="/about-us" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               About Us
             </Link>
             <Link to="/contact-us" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
               Contact Us
             </Link>
-             {user && (
-              <NavLink
+            {user && (
+              <Link
                 to="/dashboard"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 flex items-center gap-2"
                 onClick={() => setIsOpen(false)}
               >
                 <MdDashboard className="text-xl" />
                 Dashboard
-              </NavLink>
+              </Link>
             )}
           </div>
         </div>

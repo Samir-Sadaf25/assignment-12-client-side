@@ -4,14 +4,15 @@ import Footer from '../components/Footer';
 import { Outlet } from 'react-router';
 import Home from '../pages/Home';
 import PremiumSection from '../components/HomeComponents/PremiumSection';
+
 const HomeLayout = () => {
     return (
-        <div>
+        <div className=''>
             <Navbar></Navbar>
-            <div className='my-30'>
+            <div className='my-30 container mx-auto'>
                 <Outlet>
-                
-                </Outlet>
+              
+            </Outlet>
             </div>
             <Footer></Footer>
         </div>

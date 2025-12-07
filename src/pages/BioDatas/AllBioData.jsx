@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading";
 
 export default function AllBioData() {
-
+  
   const [type, setType] = useState("");
   const [division, setDivision] = useState("");
   const [minAge, setMinAge] = useState("");
@@ -28,7 +28,7 @@ export default function AllBioData() {
     return query.toString();
   };
 
-  const { data, isLoading, refetch } = useQuery({
+  const { data,isLoading, refetch } = useQuery({
     queryKey: ["all-bio", type, division, minAge, maxAge, page],
     queryFn: () => axiosSecure.get(`/all-bio?${buildQuery()}`).then((res) => res.data),
     enabled: false,
@@ -53,7 +53,7 @@ export default function AllBioData() {
     setPage(1);
     fetchBioData();
   };
-  if (isLoading) return <Loading />
+  if(isLoading) return <Loading/>
   return (
     <div className="flex flex-col md:flex-row gap-6 p-4 ">
       <aside className="md:w-1/4 w-full bg-white rounded shadow p-4 space-y-4">

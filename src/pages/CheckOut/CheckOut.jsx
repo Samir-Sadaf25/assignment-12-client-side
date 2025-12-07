@@ -12,34 +12,35 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 
 const CheckOut = () => {
+  
+  
+  const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
+  const { user } = useContext(AuthContext);
+
+  const { data: biodata, isLoading } = useQuery({
+    queryKey: ["biodata", id],
+    queryFn: async () => {
+      const res = await axiosSecure(`/get-bio/${id}?email=${user.email}`);
+      return res.data;
+    },
+  });
 
 
-    const { id } = useParams();
-    const axiosSecure = useAxiosSecure();
-    const { user } = useContext(AuthContext);
+  if (isLoading) return <Loading />;
 
-    const { data: biodata, isLoading } = useQuery({
-        queryKey: ["biodata", id],
-        queryFn: async () => {
-            const res = await axiosSecure(`/get-bio/${id}?email=${user.email}`);
-            return res.data;
-        },
-    });
+  return (
+    <div className="max-w-xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
+      <h2 className="text-3xl font-bold mb-6 text-center text-pink-600">
+        Pay to View Contact Details
+      </h2>
 
-    if (isLoading) return <Loading />;
+     <Elements stripe={stripePromise}>
+      <CheckOurForm biodata={biodata} user={user}/>
+     </Elements>
 
-    return (
-        <div className="max-w-xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
-            <h2 className="text-3xl font-bold mb-6 text-center text-pink-600">
-                Pay to View Contact Details
-            </h2>
-
-            <Elements stripe={stripePromise}>
-                <CheckOurForm biodata={biodata} user={user} />
-            </Elements>
-
-        </div>
-    );
+    </div>
+  );
 };
 
 export default CheckOut;

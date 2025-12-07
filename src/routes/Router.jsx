@@ -4,10 +4,10 @@ import HomeLayout from "../layouts/HomeLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import ViewBioData from "../pages/DashBoard/ViewBioData";
 import DashboardLayout from "../layouts/DashboardLayout";
 import PrivateRoute from "../provider/PrivateRoute";
 import EditBiodataForm from "../pages/DashBoard/EditBiodataForm";
+import ViewBioData from "../pages/DashBoard/ViewBioData";
 import AllBioData from "../pages/BioDatas/AllBioData";
 import BioDetails from "../pages/BioDatas/BioDetails";
 import AboutUs from "../pages/AboutUs";
@@ -20,6 +20,9 @@ import ManageUsers from "../pages/DashBoard/Admin/ManageUsers";
 import ApprovedPremium from "../pages/DashBoard/Admin/ApprovedPremium";
 import ApprovedContactRequest from "../pages/DashBoard/Admin/ApprovedContactRequest";
 import AdminSuccessStory from "../pages/DashBoard/Admin/AdminSuccessStory";
+import Profile from "../pages/DashBoard/Admin/Profile";
+import UserProfile from "../pages/DashBoard/UserProfile";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,7 +35,6 @@ const router = createBrowserRouter([
       {
         path: "/biodatas",
         element: <AllBioData></AllBioData>,
-
       },
       {
         path: "/biodatas/:id",
@@ -60,7 +62,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/checkout/:id",
-        element: <PrivateRoute><CheckOut></CheckOut></PrivateRoute>
+        element:<PrivateRoute><CheckOut></CheckOut></PrivateRoute>
       },
     ],
   },
@@ -74,58 +76,71 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard/edit-bio-data",
-        element: <PrivateRoute>
+        element:<PrivateRoute>
           <EditBiodataForm></EditBiodataForm>
         </PrivateRoute>
       },
       {
         path: "/dashboard/view-bio-data",
-        element: <PrivateRoute>
-          <ViewBioData></ViewBioData>
+        element:<PrivateRoute>
+         <ViewBioData></ViewBioData>
         </PrivateRoute>
       },
       {
         path: "/dashboard/my-contact-request",
-        element: <PrivateRoute>
+       element:<PrivateRoute>
           <MyContactRequest></MyContactRequest>
         </PrivateRoute>
       },
       {
         path: "/dashboard/my-favorites",
-        element: <PrivateRoute>
-          <MyFavouritesTable></MyFavouritesTable>
+        element:<PrivateRoute>
+         <MyFavouritesTable></MyFavouritesTable>
         </PrivateRoute>
       },
       {
         path: "/dashboard/got-married",
-        element: <PrivateRoute>
-          <GotMarried></GotMarried>
+        element:<PrivateRoute>
+         <GotMarried></GotMarried>
         </PrivateRoute>
       },
       {
-        path: '/dashboard/manage-users',
-        element: <PrivateRoute>
+        path: "/dashboard/my-profile",
+        element:<PrivateRoute>
+         <UserProfile></UserProfile>
+        </PrivateRoute>
+      },
+      {
+        path:'/dashboard/manage-users',
+        element:<PrivateRoute>
           <ManageUsers></ManageUsers>
         </PrivateRoute>
       },
       {
-        path: '/dashboard/approved-premium',
-        element: <PrivateRoute>
-          <ApprovedPremium />
+        path:'/dashboard/approved-premium',
+        element:<PrivateRoute>
+          <ApprovedPremium/>
         </PrivateRoute>
       },
       {
-        path: '/dashboard/approved-contact-request',
-        element: <PrivateRoute>
-          <ApprovedContactRequest />
+        path:'/dashboard/approved-contact-request',
+        element:<PrivateRoute>
+          <ApprovedContactRequest/>
         </PrivateRoute>
       },
       {
-        path: '/dashboard/admin-success-story',
-        element: <PrivateRoute>
-          <AdminSuccessStory />
+        path:'/dashboard/admin-success-story',
+        element:<PrivateRoute>
+         <AdminSuccessStory/>
         </PrivateRoute>
       },
+      {
+        path:'/dashboard/profile',
+        element:<PrivateRoute>
+          <Profile></Profile>
+        </PrivateRoute>
+      }
+
     ],
   },
   {

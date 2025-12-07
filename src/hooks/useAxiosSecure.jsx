@@ -3,23 +3,20 @@ import { use } from "react";
 import { AuthContext } from "../provider/AuthContext";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: `https://assignment-12-server-two-bice.vercel.app`,
 });
-
 const useAxiosSecure = () => {
   const { user } = use(AuthContext); 
 
+
   axiosSecure.interceptors.request.use(
     config => {
-      if (user?.accessToken) {
+      if (user?.accessToken){
         config.headers.Authorization = `Bearer ${user.accessToken}`;
       }
-    
-
-
-       return config;
+      return config; 
     },
-    error => Promise.reject(error)
+    error => Promise.reject(error) 
   );
 
   return axiosSecure;

@@ -8,48 +8,51 @@ import { AuthContext } from "../../provider/AuthContext";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useRole from "../../hooks/useRole";
+
 export default function ViewBioData() {
   const { user } = use(AuthContext);
-  const [role] = useRole();
-  const axiosSecure = useAxiosSecure()
+  const [role]=useRole();
+  
+  
+const axiosSecure=useAxiosSecure()
   const { data: biodata, isLoading } = useQuery({
     queryKey: ["biodata", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/my-bio/${user.email}`
-
+        
       );
       return data;
     },
     enabled: !!user?.email,
   });
   const handleBtn = (biodata) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: `Do you want to send a premium request ?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, send it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.post(`/premium-request`, {
-          name: biodata?.name,
-          email: biodata?.email,
-          BiodataId: biodata?.BiodataId,
-          type: biodata?.type
+  Swal.fire({
+    title: 'Are you sure?',
+    text: `Do you want to send a premium request ?`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, send it!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axiosSecure.post(`/premium-request`,{
+        name:biodata?.name,
+        email:biodata?.email,
+        BiodataId:biodata?.BiodataId,
+        type:biodata?.type
+      })
+        .then(res => {
+          console.log(res.data);
+          Swal.fire('Sent!', 'Your premium request has been sent.', 'success');
         })
-          .then(res => {
-            console.log(res.data);
-            Swal.fire('Sent!', 'Your premium request has been sent.', 'success');
-          })
-          .catch(err => {
-            const message = err?.response?.data?.message
-            Swal.fire('Error!', message, 'error');
-          });
-      }
-    });
-  };
+        .catch(err => {
+          const message=err?.response?.data?.message
+          Swal.fire('Error!',message,'error' );
+        });
+    }
+  });
+};
 
   if (isLoading) return <Loading />;
 
@@ -89,20 +92,20 @@ export default function ViewBioData() {
       </div>
 
       <div className="mt-8 text-center">
-        {role === "premium" ? (
-          <div className="text-green-600 text-lg font-semibold">
-            Your biodata is  <span className="underline">Premium</span>!
-          </div>
-        ) : (
-          <button
-            onClick={() => handleBtn(biodata)}
-            className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2 mx-auto"
-          >
-            <FaStar className="text-yellow-300" />
-            Make Biodata Premium
-          </button>
-        )}
-      </div>
+  {role === "premium" ? (
+    <div className="text-green-600 text-lg font-semibold">
+       Your biodata is  <span className="underline">Premium</span>!
+    </div>
+  ) : (
+    <button
+      onClick={() => handleBtn(biodata)}
+      className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2 mx-auto"
+    >
+      <FaStar className="text-yellow-300" />
+      Make Biodata Premium
+    </button>
+  )}
+</div>
 
     </div>
   );
