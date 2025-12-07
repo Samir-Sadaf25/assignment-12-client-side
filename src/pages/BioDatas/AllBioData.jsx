@@ -11,7 +11,8 @@ export default function AllBioData() {
  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
  const limit = 20; 
-const axiosSecure=useAxiosSecure()
+
+ 
   const fetchBioData = () => {
     const query = new URLSearchParams();
 

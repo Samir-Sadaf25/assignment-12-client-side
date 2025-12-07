@@ -38,12 +38,12 @@ const CheckOurForm = ({ biodata, user }) => {
         });
 
         if (error) {
-            console.log('[error]', error);
+
             setCardError(error)
             setProcessing(false)
             return
         } else {
-            console.log('[PaymentMethod]', paymentMethod);
+
             setCardError()
         }
         const result = await stripe.confirmCardPayment(clientSecret, {
@@ -63,21 +63,48 @@ const CheckOurForm = ({ biodata, user }) => {
             return
         }
 
-
         if (result?.paymentIntent) {
             Swal.fire({
                 icon: "success",
                 title: "Congratulations",
-                text: "You have successfully  sent your request",
+                text: "You have successfully sent your request",
                 draggable: true,
                 timer: 1400,
             });
-            setProcessing(false)
+
+            setProcessing(false);
             const transactionId = result?.paymentIntent?.id;
 
-            axiosSecure.post(`/contact-req`, {
-                transactionId, name: user?.displayName, biodataId: biodata?.BiodataId, email: user?.email
-            })
+            try {
+                const { data } = await axiosSecure.post(`/contact-req`, {
+                    transactionId,
+                    name: user?.displayName,
+                    biodataId: biodata?.BiodataId,
+                    email: user?.email,
+                    nowStatus: "Pending",
+                    biodata
+                });
+
+                console.log('Contact request saved:', data);
+            } catch (error) {
+                setProcessing(false);
+
+                if (error.response && error.response.status === 400) {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Request Already Sent',
+                        text: error.response.data.message || 'You have already sent a request for this biodata.',
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Something went wrong. Please try again later.',
+                    });
+                }
+                return;
+            }
 
         }
     };
