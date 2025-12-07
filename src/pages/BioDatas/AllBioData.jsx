@@ -107,7 +107,7 @@ useEffect(() => {
         
         <button
           
-          className="w-full bg-blue-700 text-white py-2 rounded mt-2" onClick={applyFilters}
+          className="w-full cursor-pointer bg-blue-700 text-white py-2 rounded mt-2" onClick={applyFilters}
         >
           Apply Filter
         </button>
