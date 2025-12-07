@@ -5,10 +5,9 @@ import useRole from "../../hooks/useRole";
 import Swal from "sweetalert2";
 import { useParams } from "react-router";
 import { AuthContext } from "../../provider/AuthContext";
-import { use } from "react";
 const BioDetails = () => {
     const [similarBiodatas, setSimilarBiodatas] = useState([]);
-     const { user } = use(AuthContext);
+    const { user } = use(AuthContext);
     const { id } = useParams();
     const [biodata, setBiodata] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
